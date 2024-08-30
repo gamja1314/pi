@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BoardSpace">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="boardVO" type="egovframework.example.sample.service.BoardVO"/>
+
+
+ <!-- 	<insert id="boardDAO.insertBoard">	
+	INSERT INTO reboard ( unq,
+						title,
+						pwd,
+						name,
+						content,
+						hit,
+						rdate )
+				VALUES ( reboard_unq.nextval,
+						'$title$',
+						 '$pwd$',
+						 '$name$',
+						 '$content$',
+						 '$hit$',
+						  sysdate  )
+	</insert>  -->
+	
+	<insert id="boardDAO.insertMember">	
+	INSERT INTO member ( memNum,
+						 memId,
+						 memPwd,
+						 email,
+						 memName
+						 )
+				VALUES ( member_seq.nextval,
+						 #memId#,
+						 #memPwd#,
+						 #email#,
+						 #memName#
+						  )
+	</insert>
+	
+
+	<select id="boardDAO.selectMemberIdPwdCheck" resultClass="java.lang.Integer">
+		SELECT COUNT(*) FROM member
+			WHERE
+				memId=#memId# AND memPwd=#memPwd#
+	</select>
+	
+	<insert id="boardDAO.insertBoard">	
+	INSERT INTO reBoard ( unq,
+						title,
+						pwd,
+						name,
+						content,
+						hit,
+						rdate,
+						thread,
+						fid )
+				VALUES ( reboard_unq.nextval,
+						 #title#,
+						 #pwd#,
+						 #name#,
+						 #content#,
+						 '0',
+						 sysdate,
+						 'a',
+						 (select nvl(max(fid),0)+1 from reBoard) )
+	</insert>
+	
+	<insert id="boardDAO.insertReBoardReply">
+	INSERT INTO reBoard ( unq,
+						title,
+						pwd,
+						name,
+						content,
+						hit,
+						rdate,
+						thread,
+						fid )
+				VALUES ( reboard_unq.nextval,
+						 #title#,
+						 #pwd#,
+						 #name#,
+						 #content#,
+						 '0',
+						 sysdate,
+						 #thread#,
+					(SELECT fid FROM reBoard WHERE unq=#unq# )
+						  )
+	</insert>
+	
+	<select id="boardDAO.selectReBoardTotal" resultClass="java.lang.Integer">
+		
+		SELECT count(*) FROM reBoard
+		
+	</select>
+	
+	<select id="boardDAO.selectReBoardThread"
+									resultClass="java.lang.String">
+	
+		SELECT fn_myThread('$unq$') FROM dual
+	
+	</select>
+									
+	<select id="boardDAO.selectBoardList" resultClass="egovMap">
+		SELECT  unq,
+				title,
+				pwd,
+				name,
+				content,
+				hit,
+				to_char(rdate ,'yyyy-MM-dd') as rdate
+		FROM 
+				board
+		WHERE
+			1=1
+		
+		<isNotNull property="srchCond">
+
+			<isEqual  property="srchCond" compareValue="titleCont">
+			AND ( title LIKE '%$srchWord$%'
+						OR content LIKE '%$srchWord$%' )
+			</isEqual>
+			
+			<isNotEqual  property="srchCond" compareValue="titleCont">
+			AND  $srchCond$ LIKE '%$srchWord$%'
+			</isNotEqual>
+		
+		</isNotNull>
+
+		ORDER BY 
+				unq DESC 
+	</select> 
+	
+	<select id="boardDAO.selectReBoardFid" 
+						resultClass="java.lang.Integer">
+		
+		<!-- SELECT ifnull(max(fid),0) + 1 FROM reBoard -->
+		SELECT nvl(max(fid),0) + 1 FROM reBoard
+	
+	</select>
+	
+	<select id="boardDAO.selectReBoardList" resultClass="egovMap">
+	
+SELECT c.* FROM (
+   SELECT rownum rn,b.* FROM (
+        SELECT  unq,
+				title,
+				pwd,
+				name,
+				content,
+				hit,
+				thread,
+				fid,
+				to_char(rdate ,'yyyy-MM-dd') as rdate
+				  FROM 
+				  	reBoard a
+               ORDER by
+               	 fid DESC, thread ASC )  b
+                     ) c
+            WHERE
+                rn >=#firstIdx# AND rn <![CDATA[<=]]> #lastIdx#
+		
+		
+	</select>
+	
+	<select id="boardDAO.selectReBoardDetail" resultClass="boardVO">
+	
+		SELECT  unq,
+				title,
+				pwd,
+				name,
+				content,
+				thread,
+				fid
+		FROM 
+	 		reBoard
+	 	WHERE 
+	 		unq=#unq#
+	</select>
+	
+	<select id="boardDAO.selectBoardDetail" resultClass="boardVO">
+	
+		SELECT  unq,
+				title,
+				pwd,
+				name,
+				content
+		FROM 
+				reboard
+		WHERE
+				unq = #unq#
+	</select>
+	
+	<update id="boardDAO.updateBoard">	
+			UPDATE  reboard SET 
+					title = #title#,
+					name = #name#,
+					content = #content#,
+					hit = 0,
+					rdate = now()
+			WHERE
+				unq = #unq#
+	</update>
+	
+	<delete id="boardDAO.deleteBoard">
+		DELETE FROM reboard
+			WHERE
+				unq = #unq# 
+	</delete>
+	
+
+	
+</sqlMap>
+
+
+
+
+
+
+
+
+
+

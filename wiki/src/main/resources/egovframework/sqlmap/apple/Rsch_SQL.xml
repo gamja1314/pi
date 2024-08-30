@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="RschSpace">
+
+	<typeAlias alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+	<typeAlias alias="rschVO" type="egov.service.RschVO" />
+
+	<insert id="rschDAO.insertRschMain">
+	
+		INSERT INTO rschMain(cd,
+							 title,
+							 sdate,
+							 edate,
+							 use,
+							 rdate ) 
+				VALUES ( 
+						'r'||lpad(rsch_seq.nextval,3,'0'),
+						#title#,
+						#sdate#,
+						#edate#,
+						#use#,
+						sysdate )
+	</insert>
+	
+	<insert id="rschDAO.insertRschSub">
+		INSERT INTO rschSub(cd,comm) 
+				VALUES (fn_rschsub_cd(),#comm1#)
+	</insert>
+	
+	<insert id="rschDAO.insertRschEnter">
+		
+	</insert>
+
+
+</sqlMap>

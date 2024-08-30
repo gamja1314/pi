@@ -1,0 +1,153 @@
+   	   #container {
+        width: 1280px;
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ffffff;
+        align:center;
+        margin-left:auto;
+        margin-right:auto;
+      }
+      #header {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ffffff;
+      }
+      #content {
+        width: 960px;
+        padding: 10px;
+        margin-bottom: 20px;
+        float: right;
+        border: 2px solid #000000;
+      }
+      #logcnt {
+        width: 960px;
+        padding: 10px;
+        margin-bottom: 20px;
+        float: right;
+        border: 2px solid #000000;
+        background-image: url("/images/log.jpg");
+   		position: relative;
+  		background-size: cover;
+      }
+      #sidebar {        
+    	width: 260px;
+        padding: 10px;
+        margin-bottom: 20px;
+        float: left;
+        border: 2px solid #000000;
+      }
+      #footer {
+        clear: both;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+      .sch_smit {
+		width: 74px; height: 40px;
+		display: inline-block;
+		border: 0;
+		background: #000000;
+		color: white;
+		font-weight: bold;
+		border-radius: 1px;
+		cursor: pointer;
+	   }
+	.sch_smit:hover {
+		background: #58ACFA;
+	}
+      
+      
+      
+      
+      
+      @font-face{
+		font-family:'Tmon';
+		font-style: normal;
+		font-weight:200;
+		src: url('../css/TmonMonsori.ttf.ttf') format('truetype')
+  		}
+      #button1 {
+      	display: inline-block;
+ 		border-radius: 4px;
+  		background-color: #58acfa;
+  		border: none;
+  		color: #FFFFFF;
+  		text-align: center;
+  		font-size: 28px;
+  		padding: 20px;
+  		width: 200px;
+  		transition: all 0.5s;
+  		cursor: pointer;
+  		margin: 5px;
+  		
+      }
+      #button1 span {
+  		cursor: pointer;
+  		display: inline-block;
+  		position: relative;
+  		transition: 0.5s;
+  		}
+  		#button1 span:after {
+  		content: '\00bb';
+  		position: absolute;
+  		opacity: 0;
+  		top: 0;
+  		right: -20px;
+  		transition: 0.5s;
+		}
+		#button1:hover span {
+ 		 padding-right: 25px;
+		}
+		#button1:hover span:after {
+  		opacity: 1;
+  		right: 0;
+		}
+		#aboutGame {
+		height: 250px; 
+		font-size: 28px;	
+		}
+		#box {
+    	position: relative;
+    	height: auto;
+    	width:900px;
+    	margin: auto;
+    	background: #c1d1f0;
+		}
+		#left {
+    	background: #ffffff;
+    	float: left;
+    	height: 550px;
+    	width: 70%;
+    	position: relative;   
+		} 
+		#main {
+    	background-color: #000000;
+    	float: left;
+    	height: 550px;	
+    	width: 30%;
+    	position: relative;
+		}
+		#about {
+		margin-top:10px;
+		margin-left:10px;
+		margin-right:10px;
+		background:#c1d1f0;
+		font-size: 25px;
+		padding:10px;
+		}
+      
+      
+
+     
+     
+
+
+#tb{
+	width:920px;
+	border:0px solid #000000;
+	
+}
+#nm{
+	font-size:20;
+}
+
+
